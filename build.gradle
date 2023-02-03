@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE' // 스프링 부트의 의존성들을 관리해 주는 플러그인
+}
+
+group 'com.jojoldu.book'
+version '1.0-SNAPSHOT'
+
+repositories { // 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정한다.
+    mavenCentral()
+    jcenter()
+}
+// for Junit 5
+test { // (2) Junit5를 사용하기 위해서는 필수로 선언되어야 합니다.
+    useJUnitPlatform()
+}
+
+dependencies { // 프로젝트 개발에 필요한 의존성들을 선언하는 곳.
+    //(3)
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+
+    // lombok
+    implementation('org.projectlombok:lombok')
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+    annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation("org.mariadb.jdbc:mariadb-java-client")
+    implementation('com.h2database:h2')
+}
