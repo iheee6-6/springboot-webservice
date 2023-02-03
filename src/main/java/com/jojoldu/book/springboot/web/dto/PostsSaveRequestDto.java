@@ -17,7 +17,6 @@ public class PostsSaveRequestDto { //엔티티 클래스는 절대로 request/re
         this.title=title;
         this.content=content;
         this.author=author;
-
     }
     public Posts toEntity() {
         return Posts.builder().title(title)
