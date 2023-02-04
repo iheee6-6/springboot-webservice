@@ -1,5 +1,6 @@
 package com.jojoldu.book.springboot.domain.posts;
 
+import com.jojoldu.book.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter //엔티티 클래스에는 setter 만들지 않음!!
 @NoArgsConstructor // 위 두개는 롬복의 어노테이션. 기본생성자 자동추가 ex) public Posts(){} 깉은 효과
 @Entity //jpa의 어노테이션. 테이블과 링크될 클래스임을 나타냄. 기본값으로 클래스의 카멜케이스 이름을 _으로 테이블 이름을 매칭함. ex) SalesManager.java -> sales_manager table
-public class Posts { //실제 디비의 테이블과 매칭될 클래스 "Entity 클래스"라 칭함
+public class Posts extends BaseTimeEntity { //실제 디비의 테이블과 매칭될 클래스 "Entity 클래스"라 칭함
     @Id //해당 테이블의 pk 필드
     @GeneratedValue(strategy = GenerationType.IDENTITY) //pk 생성 규칙을 나타냄. GenerationType.IDENTITY 는 auto increment를 뜻함
     private Long id;
@@ -27,5 +28,10 @@ public class Posts { //실제 디비의 테이블과 매칭될 클래스 "Entity
         this.title=title;
         this.content=content;
         this.author=author;
+    }
+
+    public void update(String title,String content){
+        this.title=title;
+        this.content=content;
     }
 }
