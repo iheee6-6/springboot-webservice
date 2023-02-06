@@ -1,39 +1,42 @@
-plugins {
-    id 'java'
-    id 'eclipse'
-    id 'org.springframework.boot' version '2.7.1'
-    id 'io.spring.dependency-management' version '1.0.12.RELEASE' // 스프링 부트의 의존성들을 관리해 주는 플러그인
+buildscript {
+    ext {
+        springBootVersion = '2.1.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
-group 'com.jojoldu.book'
-version '1.0-SNAPSHOT'
-sourceCompatibility = 11
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
-repositories { // 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정한다.
+group 'com.jojoldu.book'
+version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
+sourceCompatibility = 1.8
+
+repositories {
     mavenCentral()
     jcenter()
 }
-// for Junit 5
-test { // (2) Junit5를 사용하기 위해서는 필수로 선언되어야 합니다.
-    useJUnitPlatform()
-}
 
-dependencies { // 프로젝트 개발에 필요한 의존성들을 선언하는 곳.
-    //(3)
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.springframework.boot:spring-boot-starter-mustache')
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.projectlombok:lombok')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-mustache')
+    compile('com.h2database:h2')
 
-    // lombok
-    implementation('org.projectlombok:lombok')
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.2'
-    implementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'junit:junit:4.13.1'
-    testImplementation 'junit:junit:4.13.1'
-    annotationProcessor('org.projectlombok:lombok')
-    testImplementation('org.projectlombok:lombok')
-    testAnnotationProcessor('org.projectlombok:lombok')
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    compile('org.springframework.session:spring-session-jdbc')
 
-    implementation('org.springframework.boot:spring-boot-starter-data-jpa') // Spring Data Jpa 추상화 하이브러리. 부트 버전에 맞춰 자동으로 jpa 관련 라이브러리들의 버전을 관리헤줌
-    implementation("org.mariadb.jdbc:mariadb-java-client")
-    implementation('com.h2database:h2') // 인메모리 관계형 디비.
+    compile("org.mariadb.jdbc:mariadb-java-client")
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.springframework.security:spring-security-test")
 }
