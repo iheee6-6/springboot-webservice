@@ -6,7 +6,7 @@ branches:
   only:
     - haeun
 
-#Travis CI 서버의 Home
+#Travis CI 서버의 Home 11111
 cache:
   directories:
     - '$HOME/.m2/repository'
